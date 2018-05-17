@@ -30,3 +30,8 @@ IDEA предлагает GIT.png
 addressbook-web-tests/gradlew
 addressbook-web-tests/gradlew.bat
 *.class
+.idea/codeStyles/codeStyleConfig.xml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/compiler.xml
+.idea/gradle.xml
+.idea/modules.xml
