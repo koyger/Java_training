@@ -23,3 +23,10 @@ IDEA предлагает GIT.png
 *.xml
 *.xml
 *.class
+*.xml
+*.xml
+*.xml
+*.iml
+addressbook-web-tests/gradlew
+addressbook-web-tests/gradlew.bat
+*.class
