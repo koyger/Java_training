@@ -35,7 +35,21 @@ public class ContactCreationForm {
     @Test
     public void testContactCreation() {
 
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+        gotoNewContactPage();
+        fillContactForm();
+        submitConactForm();
+        returnToContactsPage();
+    }
+
+    private void returnToContactsPage() {
+        wd.findElement(By.linkText("home")).click();
+    }
+
+    private void submitConactForm() {
+        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    }
+
+    private void fillContactForm() {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
         wd.findElement(By.name("firstname")).sendKeys("Petr");
@@ -47,10 +61,10 @@ public class ContactCreationForm {
         wd.findElement(By.name("lastname")).sendKeys("Petrov");
         wd.findElement(By.name("nickname")).click();
         wd.findElement(By.name("nickname")).clear();
-        wd.findElement(By.name("nickname")).sendKeys("petrishe");
+        wd.findElement(By.name("nickname")).sendKeys("petrishchev");
         wd.findElement(By.name("title")).click();
         wd.findElement(By.name("title")).clear();
-        wd.findElement(By.name("title")).sendKeys("Mr");
+        wd.findElement(By.name("title")).sendKeys("Mr.");
         wd.findElement(By.name("company")).click();
         wd.findElement(By.name("company")).clear();
         wd.findElement(By.name("company")).sendKeys("Petrosoft");
@@ -59,7 +73,7 @@ public class ContactCreationForm {
         wd.findElement(By.name("address")).sendKeys("23 Main Str., San-Diego, CA, USA");
         wd.findElement(By.name("home")).click();
         wd.findElement(By.name("home")).clear();
-        wd.findElement(By.name("home")).sendKeys("+19999999999");
+        wd.findElement(By.name("home")).sendKeys("+1 999 999 99 99");
         wd.findElement(By.name("email")).click();
         wd.findElement(By.name("email")).clear();
         wd.findElement(By.name("email")).sendKeys("pe");
@@ -72,18 +86,18 @@ public class ContactCreationForm {
         wd.findElement(By.name("email2")).click();
         wd.findElement(By.name("email2")).clear();
         wd.findElement(By.name("email2")).sendKeys("petr@petrosoft.com");
-        wd.findElement(By.name("email3")).click();
-        wd.findElement(By.name("email3")).sendKeys("\\9");
         wd.findElement(By.name("homepage")).click();
         wd.findElement(By.name("homepage")).clear();
         wd.findElement(By.name("homepage")).sendKeys("petrov.petrosoft.com");
         wd.findElement(By.name("notes")).click();
         wd.findElement(By.name("notes")).clear();
         wd.findElement(By.name("notes")).sendKeys("Notes For Petrov");
-        wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
-        wd.findElement(By.linkText("home")).click();
     }
-    
+
+    private void gotoNewContactPage() {
+        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
+    }
+
     @AfterMethod
     public void tearDown() {
         wd.quit();
