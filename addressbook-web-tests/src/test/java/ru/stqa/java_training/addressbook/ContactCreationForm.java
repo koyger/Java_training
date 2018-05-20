@@ -1,17 +1,14 @@
+package ru.stqa.java_training.addressbook;
+
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-import static org.testng.Assert.*;
 
 import java.util.concurrent.TimeUnit;
-import java.util.Date;
-import java.io.File;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.interactions.Actions;
+
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
-import static org.openqa.selenium.OutputType.*;
 
 public class ContactCreationForm {
     FirefoxDriver wd;
@@ -20,17 +17,24 @@ public class ContactCreationForm {
     public void setUp() throws Exception {
         wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/Users/koyger/Desktop/FirefoxESR/FirefoxESR.app/Contents/MacOS/firefox"));
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
+
+        login("admin", "secret");
     }
-    
-    @Test
-    public void ContactCreationForm() {
+
+    private void login(String login, String password) {
         wd.get("http://localhost/addressbook/edit.php");
         wd.findElement(By.name("user")).click();
         wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys("admin");
+        wd.findElement(By.name("user")).sendKeys(login);
         wd.findElement(By.name("pass")).click();
         wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys("secret");
+        wd.findElement(By.name("pass")).sendKeys(password);
+    }
+
+    @Test
+    public void testContactCreation() {
+
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
