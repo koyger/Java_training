@@ -1,19 +1,10 @@
 package ru.stqa.java_training.addressbook.tests;
-
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
-
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.*;
 import ru.stqa.java_training.addressbook.model.ContactData;
 
-public class ContactCreationTests {
-    FirefoxDriver wd;
-    
+public class ContactCreationTests extends TestBase {
+    /*FirefoxDriver wd;
+
     @BeforeMethod
     public void setUp() throws Exception {
         wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/Users/koyger/Desktop/FirefoxESR/FirefoxESR.app/Contents/MacOS/firefox"));
@@ -31,18 +22,20 @@ public class ContactCreationTests {
         wd.findElement(By.name("pass")).click();
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys(password);
-    }
+    }*/
 
     @Test
     public void testContactCreation() {
 
-        gotoNewContactPage();
-        fillContactForm(new ContactData("Petr", "Petrovich", "Petrov", "petrishchev", "Mr.", "Petrosoft", "23 Main Str., San-Diego, CA, USA", "+1 999 999 99 99", "petr@gmail.com", "petr@petrosoft.com", "petrov.petrosoft.com", "Notes For Petrov"));
-        submitConactForm();
-        returnToContactsPage();
+        app.getNavigationHelper().gotoNewContactPage();
+        app.getContactHelper().fillContactForm(new ContactData("Petr", "Petrovich", "PetroFF", "petrishchev", "Mr.", "Petrosoft", "Теперь двухзвенные классы", "+1 999 999 99 99", "petr@gmail.com", "petr@petrosoft.com", "petrov.petrosoft.com", "Notes For Petrov"));
+        app.getContactHelper().submitContactForm();
+        app.getContactHelper().returnToContactsPage();
+
+        //returnToContactsPage();
     }
 
-    private void returnToContactsPage() {
+    /*private void returnToContactsPage() {
         wd.findElement(By.linkText("home")).click();
     }
 
@@ -51,27 +44,12 @@ public class ContactCreationTests {
     }
 
     private void fillContactForm(ContactData contactData) {
-        wd.findElement(By.name("firstname")).click();
-        wd.findElement(By.name("firstname")).clear();
-        wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
-        wd.findElement(By.name("middlename")).click();
-        wd.findElement(By.name("middlename")).clear();
-        wd.findElement(By.name("middlename")).sendKeys(contactData.getSecondName());
-        wd.findElement(By.name("lastname")).click();
-        wd.findElement(By.name("lastname")).clear();
-        wd.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
-        wd.findElement(By.name("nickname")).click();
-        wd.findElement(By.name("nickname")).clear();
-        wd.findElement(By.name("nickname")).sendKeys(contactData.getNickName());
-        wd.findElement(By.name("title")).click();
-        wd.findElement(By.name("title")).clear();
-        wd.findElement(By.name("title")).sendKeys(contactData.getTitle());
-        wd.findElement(By.name("company")).click();
-        wd.findElement(By.name("company")).clear();
-        wd.findElement(By.name("company")).sendKeys(contactData.getCompany());
-        wd.findElement(By.name("address")).click();
-        wd.findElement(By.name("address")).clear();
-        wd.findElement(By.name("address")).sendKeys(contactData.getAddress());
+
+
+
+
+
+
         wd.findElement(By.name("home")).click();
         wd.findElement(By.name("home")).clear();
         wd.findElement(By.name("home")).sendKeys(contactData.getPhone());
@@ -105,5 +83,5 @@ public class ContactCreationTests {
         } catch (NoAlertPresentException e) {
             return false;
         }
-    }
+    }*/
 }
