@@ -30,7 +30,8 @@ public class ApplicationManager {
 
 
 
-    public void stop() {
+    public void stop() throws Exception {
+
         wd.quit();
     }
 

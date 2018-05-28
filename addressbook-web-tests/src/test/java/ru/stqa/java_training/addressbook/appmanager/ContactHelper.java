@@ -28,8 +28,16 @@ public class ContactHelper extends HelperBase {
     public void submitContactForm() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
+    public void updateContactForm() {
+        click(By.xpath("//div[@id='content']/form[1]/input[22]"));
+    }
+
+
     public void returnToContactsPage(){
         click(By.linkText("home"));
     }
 
+    public void submitContactDeletion() {
+        click(By.xpath("//div[@id='content']/form[2]/input[2]"));
+    }
 }
