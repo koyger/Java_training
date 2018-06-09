@@ -1,12 +1,13 @@
 package ru.stqa.java_training.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class SessionHelper extends HelperBase {
 
 
-    public SessionHelper(FirefoxDriver wd) {
+    public SessionHelper(WebDriver wd) {
 
         super(wd);
     }
