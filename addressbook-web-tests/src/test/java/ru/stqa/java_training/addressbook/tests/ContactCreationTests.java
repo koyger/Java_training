@@ -8,7 +8,10 @@ public class ContactCreationTests extends TestBase {
     public void testContactCreation() {
 
         app.getNavigationHelper().gotoNewContactPage();
-        app.getContactHelper().fillContactForm(new ContactData("Petr", "Petrovich", "PetroFF", "petrishchev", "Mr.", "Petrosoft", "Теперь двухзвенные классы", "+1 999 999 99 99", "petr@gmail.com", "petr@petrosoft.com", "petrov.petrosoft.com", "Notes For Petrov"));
+        app.getContactHelper().fillContactForm(new ContactData("Petr", "Petrovich", "PetroFF",
+            "petrishchev", "Mr.", "Petrosoft", "Теперь двухзвенные классы",
+            "+1 999 999 99 99", "petr@gmail.com", "petr@petrosoft.com",
+            "petrov.petrosoft.com", "Notes For Petrov", "TestGroup1"), true);
         app.getContactHelper().submitContactForm();
         app.getContactHelper().returnToContactsPage();
 

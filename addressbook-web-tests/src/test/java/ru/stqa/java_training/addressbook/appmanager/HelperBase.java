@@ -2,6 +2,7 @@ package ru.stqa.java_training.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -16,7 +17,8 @@ public class HelperBase {
         wd.findElement(locator).click();
     }
 
-    protected void type(By locator, String text) {
+    protected void type(By locator, String text)
+    {
         click(locator);
         if (text != null)
         {
@@ -38,4 +40,14 @@ public class HelperBase {
         }
     }
 
+  protected boolean isElementPresent(By locator) {
+      try {
+          wd.findElement(locator);
+          return true;
+      } catch (NoSuchElementException ex) {
+          return false;
+      }
+
+
+  }
 }
