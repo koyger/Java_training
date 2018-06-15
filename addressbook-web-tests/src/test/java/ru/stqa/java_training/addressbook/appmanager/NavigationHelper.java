@@ -19,7 +19,7 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void gotoNewContactPage() {
-        click(By.linkText("add new"));
+      wd.get("http://localhost/addressbook/edit.php");
     }
 
     public void gotoHomePage() {
