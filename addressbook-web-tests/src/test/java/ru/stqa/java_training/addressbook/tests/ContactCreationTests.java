@@ -4,16 +4,15 @@ import org.testng.annotations.Test;
 import ru.stqa.java_training.addressbook.model.ContactData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testContactCreation() {
 
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().gotoNewContactPage();
+        app.goTo().gotoNewContactPage();
         ContactData contactNew = new ContactData("Petr", "Petrovich", "PetroFF from Jose",
                 "petrishchev", "Mr.", "Petrosoft", "35 South Main Street, San Jose, CA",
                 "+1 999 999 99 99", "petr@gmail.com", "petr@petrosoft.com",

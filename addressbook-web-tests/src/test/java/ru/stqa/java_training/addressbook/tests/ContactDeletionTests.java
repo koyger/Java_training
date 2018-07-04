@@ -5,13 +5,12 @@ import org.testng.annotations.Test;
 import ru.stqa.java_training.addressbook.model.ContactData;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class ContactDeletionTests extends TestBase {
-  @Test
+  @Test(enabled = false)
   public void testContactDeletion() {
-    app.getNavigationHelper().gotoHomePage();
+    app.goTo().gotoHomePage();
     if (!app.getContactHelper().isThereAContact()) {
       app.getContactHelper().createContact(new ContactData("Petr", "Petrovich", "PetroFF",
           "petrishchev", "Mr.", "Petrosoft", "Теперь двухзвенные классы",
