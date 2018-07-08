@@ -1,15 +1,19 @@
 package ru.stqa.java_training.addressbook.appmanager;
 
+import javafx.scene.effect.SepiaTone;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.java_training.addressbook.model.ContactData;
+import ru.stqa.java_training.addressbook.model.Contacts;
 import ru.stqa.java_training.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -34,18 +38,15 @@ public class ContactHelper extends HelperBase {
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
-
-
-
     }
 
     public void submitContactForm() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
+
     public void updateContactForm() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
     }
-
 
     public void returnToContactsPage(){
         click(By.linkText("home"));
@@ -58,38 +59,75 @@ public class ContactHelper extends HelperBase {
     public void editContact(int index) {
         wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr/td[8]/a/img")).get(index).click();
     }
+    private void editContactById(int id) {
 
-  public boolean isThereAContact() {
+
+        }
+
+
+    public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
   }
 
-    public void createContact(ContactData contact) {
+    public void create(ContactData contact) {
         wd.get("http://localhost/addressbook/edit.php");
         fillContactForm(contact, true);
         submitContactForm();
         returnToContactsPage();
     }
 
-    public int getContactCount() {
+    public void modify(int index, ContactData contactModifiedFields) {
+        editContact(index);
+        fillContactForm(contactModifiedFields, false);
+        updateContactForm();
+        returnToContactsPage();
+    }
+
+    public void delete(int index) {
+        editContact(index);
+        submitContactDeletion();
+        returnToContactsPage();
+    }
+
+    public void delete(ContactData contact) {
+      editContactById(contact.getId());
+      submitContactDeletion();
+      returnToContactsPage();
+  }
+
+
+
+  public int getContactCount() {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contactList = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.name("selected[]"));
         int currentTr = 2; // Нужные нам строки начинаются с tr[2]
-
         for (WebElement element : elements) {
             String lastName = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr["+currentTr+"]/td[2]")).getText();
             String firstName = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr["+currentTr+"]/td[3]")).getText();
             int id = Integer.parseInt(element.getAttribute("value"));
-            ContactData contact = new ContactData(id, firstName, null, lastName,
-                    null, null, null,
-                    null, null, null,
-                    null, null, null, null);
-            contactList.add(contact);
+            contactList.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName));
             currentTr++;
         }
         return contactList;
     }
+
+  public Set<ContactData> allContacts() {
+    Set<ContactData> contacts = new HashSet<>();
+    List<WebElement> elements = wd.findElements(By.name("selected[]"));
+    int currentTr = 2; // Нужные нам строки начинаются с tr[2]
+    for (WebElement element : elements) {
+      String lastName = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr["+currentTr+"]/td[2]")).getText();
+      String firstName = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr["+currentTr+"]/td[3]")).getText();
+      int id = Integer.parseInt(element.getAttribute("value"));
+      contacts.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName));
+      currentTr++;
+    }
+    return contacts;
+  }
+
+
 }

@@ -3,58 +3,95 @@ package ru.stqa.java_training.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
-    private int id;
-    private final String firstName;
-    private final String secondName;
-    private final String lastName;
-    private final String nickName;
-    private final String title;
-    private final String company;
-    private final String address;
-    private final String phone;
-    private final String firstEmail;
-    private final String secondEmail;
-    private final String homePage;
-    private final String notes;
+
+    private int id = Integer.MAX_VALUE;
+    private String firstName;
+    private String secondName;
+    private String lastName;
+    private String nickName;
+    private String title;
+    private String company;
+    private String address;
+    private String phone;
+    private String firstEmail;
+    private String secondEmail;
+    private String homePage;
+    private String notes;
     private String group;
 
-    public ContactData(int id, String firstName, String secondName, String lastName, String nickName, String title,
-                       String company, String address, String phone, String firstEmail, String secondEmail,
-                       String homePage, String notes, String group) {
+    public ContactData withId(int id) {
         this.id = id;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.title = title;
-        this.company = company;
-        this.address = address;
-        this.phone = phone;
-        this.firstEmail = firstEmail;
-        this.secondEmail = secondEmail;
-        this.homePage = homePage;
-        this.notes = notes;
-        this.group = group;
+        return this;
     }
 
-    public ContactData(String firstName, String secondName, String lastName, String nickName, String title,
-                       String company, String address, String phone, String firstEmail, String secondEmail,
-                       String homePage, String notes, String group) {
-        this.id = Integer.MAX_VALUE;
+    public ContactData withFirstName(String firstName) {
         this.firstName = firstName;
-        this.secondName = secondName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.title = title;
-        this.company = company;
-        this.address = address;
-        this.phone = phone;
-        this.firstEmail = firstEmail;
-        this.secondEmail = secondEmail;
-        this.homePage = homePage;
-        this.notes = notes;
-        this.group = group;
+        return this;
     }
+
+    public ContactData withSecondName(String secondName) {
+        this.secondName = secondName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
+
+    public ContactData withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withPhone(String phone) {
+        this.phone = phone;
+        return this;
+    }
+
+    public ContactData withFirstEmail(String firstEmail) {
+        this.firstEmail = firstEmail;
+        return this;
+    }
+
+    public ContactData withSecondEmail(String secondEmail) {
+        this.secondEmail = secondEmail;
+        return this;
+    }
+
+    public ContactData withHomePage(String homePage) {
+        this.homePage = homePage;
+        return this;
+    }
+
+    public ContactData withNotes(String notes) {
+        this.notes = notes;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+
+
+
 
     public int getId() {
         return id;
@@ -119,19 +156,19 @@ public class ContactData {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ContactData that = (ContactData) o;
-        return Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName);
-    }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContactData that = (ContactData) o;
+    return id == that.id &&
+            Objects.equals(firstName, that.firstName) &&
+            Objects.equals(lastName, that.lastName);
+  }
 
-    @Override
-    public int hashCode() {
+  @Override
+  public int hashCode() {
 
-        return Objects.hash(firstName, lastName);
-    }
-
+    return Objects.hash(id, firstName, lastName);
+  }
 }

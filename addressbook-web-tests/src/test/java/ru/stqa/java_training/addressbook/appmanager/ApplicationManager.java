@@ -14,7 +14,7 @@ public class ApplicationManager {
     WebDriver wd;
 
     private SessionHelper sessionHelper;
-    private  NavigationHelper navigationHelper;
+    private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
     private String browser;
@@ -60,7 +60,7 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public ContactHelper getContactHelper() {
+    public ContactHelper contact() {
         return contactHelper;
     }
 }
