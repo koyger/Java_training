@@ -1,12 +1,12 @@
 package ru.stqa.java_training.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.java_training.addressbook.model.ContactData;
-
-import java.util.Comparator;
-import java.util.List;
+import ru.stqa.java_training.addressbook.model.Contacts;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactModificationTests extends TestBase {
 
@@ -25,29 +25,17 @@ public class ContactModificationTests extends TestBase {
     @Test
     public void testContactModification(){
 
-        List<ContactData> before = app.contact().list();
-        int index = before.size()-1;
-      ContactData contactModifiedFields = new ContactData().withFirstName("Petr MoDiFiEd").withSecondName("Petrovich MoDiFiEd")
+      Contacts before = app.contact().allContacts();
+      ContactData modifiedContact = before.iterator().next();
+      ContactData newContactData = new ContactData().withId(modifiedContact.getId()).withFirstName("Petr MoDiFiEd").withSecondName("Petrovich MoDiFiEd")
               .withLastName("PetroFF MoDiFiEd").withNickName("petrishchev MOD").withTitle("Mr.")
               .withCompany("Petrosoft").withAddress("Теперь двухзвенные классы")
               .withPhone("+1 999 999 99 99").withFirstEmail("petr@gmail.com").withSecondEmail("petr@petrosoft.com")
               .withHomePage("petrov.petrosoft.com").withNotes("Notes For Petrov").withGroup(null);
-        app.contact().modify(index, contactModifiedFields);
-        List<ContactData> after = app.contact().list();
-        Assert.assertEquals(after.size(), before.size());
-        System.out.println("Before 11 = "+ before);
-        System.out.println("After 11 = "+ after);
-        before.remove(index);
-      System.out.println("Before 22 = "+ before);
-      System.out.println("After 22 = "+ after);
-        before.add(contactModifiedFields);
-      System.out.println("Before 33 = "+ before);
-      System.out.println("After 33 = "+ after);
-        Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
-
+      app.contact().modify(newContactData, modifiedContact);
+      Contacts after = app.contact().allContacts();
+      Assert.assertEquals(after.size(), before.size());
+      assertThat(after, CoreMatchers.equalTo(before.without(modifiedContact).withAdded(newContactData)));
 
     }
 

@@ -1,6 +1,5 @@
 package ru.stqa.java_training.addressbook.appmanager;
 
-import javafx.scene.effect.SepiaTone;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,12 +7,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.java_training.addressbook.model.ContactData;
 import ru.stqa.java_training.addressbook.model.Contacts;
-import ru.stqa.java_training.addressbook.model.GroupData;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -56,41 +52,45 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form[2]/input[2]"));
     }
 
-    public void editContact(int index) {
-        wd.findElements(By.xpath("//table[@id='maintable']/tbody/tr/td[8]/a/img")).get(index).click();
-    }
-    private void editContactById(int id) {
-
-
+    public void editContactById(ContactData contactToEdit) {
+      int idToEdit = contactToEdit.getId();
+      List<WebElement> elements = wd.findElements(By.name("selected[]"));
+        for (WebElement element : elements) {
+          if ((Integer.parseInt(element.getAttribute("value")) == idToEdit)) {
+              element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr/td[8]")).click();
+              return;
+            }
+          }
         }
+
+   /* private void editContactById(int id) {
+
+
+        }*/
 
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
   }
 
-    public void create(ContactData contact) {
+    public void create(ContactData contactToEDit) {
         wd.get("http://localhost/addressbook/edit.php");
-        fillContactForm(contact, true);
+        fillContactForm(contactToEDit, true);
         submitContactForm();
         returnToContactsPage();
     }
 
-    public void modify(int index, ContactData contactModifiedFields) {
-        editContact(index);
+    public void modify(ContactData contactModifiedFields, ContactData contactToEdit) {
+        editContactById(contactToEdit);
         fillContactForm(contactModifiedFields, false);
         updateContactForm();
         returnToContactsPage();
     }
 
-    public void delete(int index) {
-        editContact(index);
-        submitContactDeletion();
-        returnToContactsPage();
-    }
 
-    public void delete(ContactData contact) {
-      editContactById(contact.getId());
+
+    public void delete(ContactData contactToEDit) {
+      editContactById(contactToEDit);
       submitContactDeletion();
       returnToContactsPage();
   }
@@ -113,12 +113,13 @@ public class ContactHelper extends HelperBase {
             int id = Integer.parseInt(element.getAttribute("value"));
             contactList.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName));
             currentTr++;
+          //tr[@class='odd']/td[8]/a/img
         }
         return contactList;
     }
 
-  public Set<ContactData> allContacts() {
-    Set<ContactData> contacts = new HashSet<>();
+  public Contacts allContacts() {
+    Contacts contacts = new Contacts();
     List<WebElement> elements = wd.findElements(By.name("selected[]"));
     int currentTr = 2; // Нужные нам строки начинаются с tr[2]
     for (WebElement element : elements) {
