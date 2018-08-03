@@ -6,14 +6,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.java_training.addressbook.model.ContactData;
 import ru.stqa.java_training.addressbook.model.Contacts;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ContactDeletionTests extends TestBase {
+
   @BeforeMethod
   public void ensurePreconditions() {
     app.goTo().homePage();
@@ -30,14 +27,15 @@ public class ContactDeletionTests extends TestBase {
 
     Contacts before = app.contact().allContacts();
     ContactData deletedContact = before.iterator().next();
+    System.out.println("Deleted Contact = " + deletedContact);
     app.contact().delete(deletedContact);
     Contacts after = app.contact().allContacts();
     System.out.println("Before = " + before);
+    System.out.println("Before MODIFIED = " + before.without(deletedContact));
     System.out.println("After = " + after);
     Assert.assertEquals(after.size(), before.size() -1);
-    Assert.assertEquals(before, after);
-    assertThat(after, CoreMatchers.equalTo(before.without(deletedContact)));
-    
+    assertThat(after, equalTo(before.without(deletedContact)));
+
   }
 
 
