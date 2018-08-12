@@ -17,7 +17,7 @@ public class ContactCreationTests extends TestBase {
         ContactData contactNew = new ContactData().withFirstName("Petr").withSecondName("Petrovich")
                 .withLastName("PetroFF from Jose").withNickName("petrishchev").withTitle("Mr.")
                 .withCompany("Petrosoft").withAddress("35 South Main Street, San Jose, CA")
-                .withPhone("+1 999 999 99 99").withFirstEmail("petr@gmail.com").withSecondEmail("petr@petrosoft.com")
+                .withHomePhone("+1 999 999 99 99").withFirstEmail("petr@gmail.com").withSecondEmail("petr@petrosoft.com")
                 .withHomePage("petrov.petrosoft.com").withNotes("Notes For Petrov").withGroup("TestGroup1");
         app.contact().create(contactNew);
         Contacts after = app.contact().allContacts();

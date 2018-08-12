@@ -1,6 +1,5 @@
 package ru.stqa.java_training.addressbook.tests;
 
-import org.hamcrest.CoreMatchers;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,7 +17,7 @@ public class ContactDeletionTests extends TestBase {
       app.contact().create(new ContactData().withFirstName("Petr").withSecondName("Petrovich")
               .withLastName("PetroFF from Jose").withNickName("petrishchev").withTitle("Mr.")
               .withCompany("Petrosoft").withAddress("35 South Main Street, San Jose, CA")
-              .withPhone("+1 999 999 99 99").withFirstEmail("petr@gmail.com").withSecondEmail("petr@petrosoft.com")
+              .withHomePhone("+1 999 999 99 99").withFirstEmail("petr@gmail.com").withSecondEmail("petr@petrosoft.com")
               .withHomePage("petrov.petrosoft.com").withNotes("Notes For Petrov").withGroup("TestGroup1"));
     }
   }
@@ -27,12 +26,8 @@ public class ContactDeletionTests extends TestBase {
 
     Contacts before = app.contact().allContacts();
     ContactData deletedContact = before.iterator().next();
-    System.out.println("Deleted Contact = " + deletedContact);
     app.contact().delete(deletedContact);
     Contacts after = app.contact().allContacts();
-    System.out.println("Before = " + before);
-    System.out.println("Before MODIFIED = " + before.without(deletedContact));
-    System.out.println("After = " + after);
     Assert.assertEquals(after.size(), before.size() -1);
     assertThat(after, equalTo(before.without(deletedContact)));
 
