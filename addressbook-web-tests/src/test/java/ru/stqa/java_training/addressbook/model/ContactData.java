@@ -20,6 +20,18 @@ public class ContactData {
     private String homePage;
     private String notes;
     private String group;
+    private String allPhones;
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+
 
     public ContactData withId(int id) {
         this.id = id;
@@ -192,4 +204,6 @@ public class ContactData {
 
     return Objects.hash(id, firstName, lastName);
   }
+
+
 }

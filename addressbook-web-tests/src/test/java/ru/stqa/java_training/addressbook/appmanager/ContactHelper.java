@@ -118,17 +118,34 @@ public class ContactHelper extends HelperBase {
 
   public Contacts allContacts() {
     Contacts contacts = new Contacts();
-    List<WebElement> elements = wd.findElements(By.name("selected[]"));
+    List<WebElement> rows = wd.findElements(By.name("entry"));
+    for (WebElement row : rows) {
+      List<WebElement> cells = row.findElements(By.tagName("td"));
+      int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+      String lastName = cells.get(1).getText();
+      String firstName = cells.get(2).getText();
+      String allPhones = cells.get(5).getText();
+            contacts.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName).
+          withAllPhones(allPhones));
+    }
+    return contacts;
+  }
+  /* Отложил в стороночку работавший ранее метод
+  public Contacts allContacts() {
+    Contacts contacts = new Contacts();
+    List<WebElement> rows = wd.findElements(By.name("selected[]"));
     int currentTr = 2; // Нужные нам строки начинаются с tr[2]
-    for (WebElement element : elements) {
-      String lastName = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr["+currentTr+"]/td[2]")).getText();
-      String firstName = element.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr["+currentTr+"]/td[3]")).getText();
-      int id = Integer.parseInt(element.getAttribute("value"));
+    for (WebElement row : rows) {
+      int id = Integer.parseInt(row.getAttribute("value"));
+      String lastName = row.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr["+currentTr+"]/td[2]")).getText();
+      String firstName = row.findElement(By.xpath("//*[@id=\"maintable\"]/tbody/tr["+currentTr+"]/td[3]")).getText();
+
       contacts.add(new ContactData().withId(id).withFirstName(firstName).withLastName(lastName));
       currentTr++;
     }
     return contacts;
   }
+   */
 
 
   public ContactData infoFromEditForm(ContactData contact) {
@@ -145,6 +162,8 @@ public class ContactHelper extends HelperBase {
   }
 
   private void initContactModificationById(int id) {
+    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+
       // 1й способ найти иконку редактирования
       //WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
       //WebElement row = checkbox.findElement(By.xpath("./../.."));
@@ -158,7 +177,7 @@ public class ContactHelper extends HelperBase {
     //wd.findElement(By.xpath(String.format("//tr[.//input[@value='%s']]/td[8]/a", id))).click();
 
     // 4й способ найти иконку редактирования, самая короткая строка
-    wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+    //wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
 
 
   }

@@ -2,12 +2,30 @@ package ru.stqa.java_training.addressbook.tests;
 import org.testng.annotations.Test;
 import ru.stqa.java_training.addressbook.model.ContactData;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class ContactPhoneTests extends TestBase {
   @Test
   public void TestContactPhones () {
     app.goTo().homePage();
     ContactData contact = app.contact().allContacts().iterator().next();
-    ContactData ContactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+    ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+
+    assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
 
   }
+
+  private String mergePhones(ContactData contact) {
+
+    return Arrays.asList(contact.getHomePhone(),contact.getMobilePhone(), contact.getWorkPhone())
+        .stream().filter((s) -> ! s.equals(""))
+        .map(TestBase::cleanedPhones)
+        .collect(Collectors.joining("\n"));
+
+  }
+
 }

@@ -27,8 +27,10 @@ public class ApplicationManager {
     public void init() {
 
         if (browser.equals(BrowserType.FIREFOX)) {
-//Строка для Mac OS: wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/Users/koyger/Desktop/FirefoxESR/FirefoxESR.app/Contents/MacOS/firefox"));
-            wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:/Program Files/MozillaFirefoxESR/firefox.exe"));
+            //Строка для Mac OS:  wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/Users/koyger/Desktop/FirefoxESR/FirefoxESR.app/Contents/MacOS/firefox"));
+            //Строка для Windows: wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:/Program Files/MozillaFirefoxESR/firefox.exe"));
+
+            wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/Users/koyger/Desktop/FirefoxESR/FirefoxESR.app/Contents/MacOS/firefox"));
         } else if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
         } else if (browser.equals(BrowserType.IE)) {

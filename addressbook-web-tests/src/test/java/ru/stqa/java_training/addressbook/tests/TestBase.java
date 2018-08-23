@@ -9,7 +9,11 @@ public class TestBase {
 
     protected static final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
-    @BeforeSuite
+  public static String cleanedPhones(String phone) {
+    return phone.replaceAll("\\s","").replaceAll("[-()]","");
+  }
+
+  @BeforeSuite
     public void setUp() throws Exception {
         app.init();
 
