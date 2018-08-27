@@ -13,6 +13,11 @@ public class TestBase {
     return phone.replaceAll("\\s","").replaceAll("[-()]","");
   }
 
+  public static String cleanedEmails(String phone) {
+    return phone.replaceAll("\\s","");
+  }
+
+
   @BeforeSuite
     public void setUp() throws Exception {
         app.init();

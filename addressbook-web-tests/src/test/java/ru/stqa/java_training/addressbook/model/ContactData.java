@@ -17,20 +17,19 @@ public class ContactData {
     private String workPhone;
     private String firstEmail;
     private String secondEmail;
+    private String thirdEmail;
     private String homePage;
     private String notes;
     private String group;
     private String allPhones;
+    private String allEmails;
 
-    public String getAllPhones() {
-        return allPhones;
-    }
+
 
     public ContactData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
         return this;
     }
-
 
 
     public ContactData withId(int id) {
@@ -99,6 +98,16 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withThirdEmail(String email) {
+        this.thirdEmail = email;
+        return this;
+    }
+
+    public ContactData withAllEmails(String email) {
+        this.allEmails = email;
+        return this;
+    }
+
     public ContactData withHomePage(String homePage) {
         this.homePage = homePage;
         return this;
@@ -162,12 +171,24 @@ public class ContactData {
         return workPhone;
     }
 
+    public String getAllPhones() {
+        return allPhones;
+    }
+
     public String getFirstEmail() {
         return firstEmail;
     }
 
     public String getSecondEmail() {
         return secondEmail;
+    }
+
+    public String getThirdEmail() {
+        return thirdEmail;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
     }
 
     public String getHomePage() {
@@ -204,6 +225,7 @@ public class ContactData {
 
     return Objects.hash(id, firstName, lastName);
   }
+
 
 
 }
