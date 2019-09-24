@@ -19,12 +19,4 @@ public class TestBase {
         app.stop();
     }
 
-
-    public static String cleanedPhones(String phone) {
-        return phone.replaceAll("\\s","").replaceAll("[-()]","");
-    }
-
-    public static String cleanedEmails(String phone) {
-        return phone.replaceAll("\\s","");
-    }
 }

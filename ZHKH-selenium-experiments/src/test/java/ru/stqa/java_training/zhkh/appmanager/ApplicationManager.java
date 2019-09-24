@@ -30,14 +30,14 @@ public class ApplicationManager {
         this.browser = browser;
     }
 
-
     public void init() {
 
         if (browser.equals(BrowserType.CHROME)) {
             wd = new ChromeDriver();
         } else if (browser.equals(BrowserType.FIREFOX)) {
-            wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:/Program Files/Mozilla Firefox/firefox.exe"));
-            //Строка для Mac OS:  wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/Users/koyger/Desktop/FirefoxESR/FirefoxESR.app/Contents/MacOS/firefox"));
+            wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/home/koyger/Desktop/Webdrivers/geckodriver"));
+            // Windows: wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("C:/Program Files/Mozilla Firefox/firefox.exe"));
+            // Mac OS:  wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/Users/koyger/Desktop/FirefoxESR/FirefoxESR.app/Contents/MacOS/firefox"));
         } else if (browser.equals(BrowserType.IE)) {
             wd = new InternetExplorerDriver();
         }
@@ -49,10 +49,7 @@ public class ApplicationManager {
             capability.setPlatform(Platform.WIN10);
             wd = new EdgeDriver(capability);
             wd.get("http://www.google.com");
-
-
         }
-
 
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
         wd.get("https://10.77.3.140/#/login/sign-in/");
@@ -61,11 +58,8 @@ public class ApplicationManager {
         sessionHelper = new SessionHelper(wd);
         contactHelper = new ContactHelper(wd);
         shablonActions = new ShablonActions(wd);
-        // Login
         sessionHelper.login("aleksandr.koygerov@center2m.ru", "Sport1212");
     }
-
-
 
     public void stop() throws Exception {
 

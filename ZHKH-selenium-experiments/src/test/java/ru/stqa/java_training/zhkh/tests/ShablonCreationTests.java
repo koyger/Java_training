@@ -1,9 +1,6 @@
 package ru.stqa.java_training.zhkh.tests;
-
 import org.testng.annotations.Test;
-
 import static ru.stqa.java_training.zhkh.appmanager.ApplicationManager.waitQuant;
-
 public class ShablonCreationTests extends TestBase {
 
     @Test
@@ -14,7 +11,7 @@ public class ShablonCreationTests extends TestBase {
         app.shablon().openNew();
         app.shablon().fillSimpleShablon();
         app.shablon().saveEdits();
-        Thread.sleep(waitQuant*2);
+        Thread.sleep(1000);
     }
 
 }
